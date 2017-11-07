@@ -108,7 +108,7 @@ src="https://www.facebook.com/tr?id=1127775293981079&amp;ev=PageView&amp;noscrip
 				</span>
             </div>
             <div class="i-p-b">
-                <span class="soldPart">已搶購                    <!---$sell 销量7898 -->
+                <span class="soldPart">已搶購                    <!---$sell 销量-->
 				<span id="soldNum">30</span>
                     件</span>
                 <span class="percentBar">
@@ -126,7 +126,10 @@ src="https://www.facebook.com/tr?id=1127775293981079&amp;ev=PageView&amp;noscrip
                 </div>
             </div>
             <div style="text-align:center; font-weight:bold;">
-                <div class="text_div"><span>野杉嚴選最優良的放山黑羽土雞</span></div><div class="text_div"><span>
+                 <div class="text_div"><span>
+</span></div>
+                <div class="text_div"><span>野杉嚴選最優良的放山黑羽土雞</span></div>
+              <div class="text_div"><span>
 遵循傳統古法煉製12小時萃取</span></div><div class="text_div"><span>
 不加水，不含水蒸氣，無添加任何人工香料</span></div><div class="text_div"><span>
 經過多次高篩過濾後急速冷凍保鮮</span></div>  <div class="text_div"><span>
@@ -217,13 +220,8 @@ src="https://www.facebook.com/tr?id=1127775293981079&amp;ev=PageView&amp;noscrip
         
             <!--评论开始-->
 				<!--评论结束-->
-        <a href="#ding" id="btn-top" style="display: block;"><img src="http://uyerrep.dododoee.com/images/icon-top-copy.png" alt=""></a>
-        <div id="dLabel">
-            <a class="dropdown-toggle" onclick="show_cart(this);"><span
-                    class="glyphicon glyphicon-shopping-cart"></span>(<i style="color:red" class="mun"
-                                                                         id='cartnum'>0</i>)</a>
-            <ul class="dropdown-menu" style="width:250px;"></ul>
-        </div>
+        <a href="#ding" id="btn-top" style="display: block;"><img src="image/icon-top-copy.png" alt=""></a>
+        
         <script type="text/template" name="cart_list">
             <li style="width:250px;float:left;border-bottom:1px solid #ccc;">
                 <div style="float:left;padding:5px;"><img src="" style="width:100px;"></div>
@@ -241,279 +239,7 @@ src="https://www.facebook.com/tr?id=1127775293981079&amp;ev=PageView&amp;noscrip
                 </div>
             </li>
         </script>
-                <script type="text/javascript">
-            var cart = {};
-            var colorcart = {"\u767d\u8272":{"price":1099,"img":"opt\/ttr_1.jpg"},"\u7d05\u8272":{"price":1099,"img":"opt\/ttr_2.jpg"}};
-            var sizecart = {"\u667a\u80fd\u96d9\u63a7\u96d9\u58c1\u8a2d\u8a08":{"price":1099,"img":""}};
-            var ajaxUrl = 'http://uyerrep.dododoee.com/order/ajax.php';
-            function reload_before() {
-                $('#dLabel').find('ul.dropdown-menu').html('<li style="width:250px;float:left;"><span class="glyphicon-refresh"></span></li>');
-            }
-            function reload_list(d) {
-                $('#dLabel').find('.mun').text(d.num);
-                upd_price();
-                $('#dLabel').find('ul.dropdown-menu').html('');
-                var acart = d.product;
-                var price = d.price;
-                var total = d.num;
-                var base_price = 0;
-                var pricetotal = 0;
-                var total = d.num;
-                var dcujson = {"1":"1099"};
-                var firstdis = dcujson[1];
-                var lastdis = 0;
-                for (var vi in dcujson) {
-                    lastdis = dcujson[vi];
-                }
-                base_price = firstdis * total;
-                for (var i = 1; i <= total; i++) {
-                    if (typeof dcujson[i] == 'undefined') {
-                        var j = total - i + 1;
-                        pricetotal = parseInt(pricetotal) + parseInt(lastdis) * j;
-                        break;
-                    } else {
-                        pricetotal = parseInt(pricetotal) + parseInt(dcujson[i]);
-                    }
-                }
-                pricetotal = parseInt(pricetotal) + parseInt(price);
-                base_price = parseInt(base_price) + parseInt(price);
-                for (var i in acart) {
-                    if (typeof acart[i] != 'undefined') {
-                        var row = $('<li style="width:250px;float:left;border-bottom:1px solid #ccc;">' +
-                            '<div style="float:left;padding:5px;"><img src="" style="width:120px;"></div>' +
-                            '<div style="float:right;padding:15px 25px 5px 0;text-align:right;width:120px;">' +
-                            '<div class="col-sm-12" style="margin-top:5px;"><span class="color"></span></div>' +
-                            '<div class="col-sm-4"></div>' +
-                            '<div class="col-sm-8" style="margin-top:5px;">' +
-                            '<input name="color" type="hidden" value="">' +
-                            '<input style="width:35px;" min="1" name="mun" type="number" value="" onblur="update_cart(this)">' +
-                            '</div>' +
-                            '<div class="col-sm-12" style="margin-top:5px;color:red;"><span style="font-size:13px;cursor:pointer" class="glyphicon glyphicon-trash" onclick="remove_cart(this)"></span></div>' +
-                            '</div>  ' +
-                            '</li>');
-                        var num = acart[i].num;
-                        var size = acart[i].size;
-                        var colorimg = i.replace(size, '');
-                        var src = colorcart[colorimg].img;
-                        var opt_price=acart[i].price;
-                        row.find('.color').text(i);
-                        row.find('img').attr({'src': src});
-                        row.find('input[name=mun]').val(num);
-                        row.find('input[name=color]').val(i);
-                        row.find('input[name=color]').attr('alt',opt_price);
-                        row.find('input[name=color]').attr('title',size);
-                        $('#dLabel').find('ul.dropdown-menu').append(row);
-                    }
-                }
-                if (typeof total == 'undefined'||total == 0) {
-                    $('#dLabel').find('ul.dropdown-menu').append('<li style="width:250px;float:left;"><div style="float:left;padding:5px;">購物車為空</div></li>');
-                } else {
-                    $('#dLabel').find('ul.dropdown-menu').append(
-                        '<li style="width:250px;float:left;">' +
-                        '<div style="float:left;padding:5px;text-align:center;"><a href="cart.php" style=" font-weight: bold;padding-left: 11px;"><button>結賬</button></a></div>' +
-                        '<dl class="dl-horizontal" style="float:right;padding:5px 30px 5px 0;text-align:right">' +
-                        '<dt>原價 : </dt><dd><em>NT$</em>' + (base_price) + '</dd>' +
-                        '<dt style="color:#fb3838">>優惠 : </dt><dd style="color:#fb3838">- <em>NT$</em>' + (base_price - pricetotal) + '</dd>' +
-                        '<dd class="hr"></dd>' +
-                        '<dt>總價 : </dt><dd><em>NT$</em>' + pricetotal + '</dd>' +
-                        '</dl></li>');
-                }
-                if (typeof total == 'undefined'||total == 0) {
-                    $('.check_cart_empty').attr('onclick', 'add_to_cart_2(this,true)');
-                } else {
-                    $('.check_cart_empty').attr('onclick', '');
-                }
-                $('#dLabel').find('.mun').text(total);
-            }
-            function add_to_cart(e, j) {
-                if ($(e).hasClass('disabled')) return;
-                var text = $(e).val();
-                $(e).addClass('disabled').val('加入購物車');
-                var color = $('.attrs ul').find('.color-img.selected').find('img').attr('alt');
-                var price = $('.pro_title ul').find('.color.selected').find('span').attr('datavalue');
-                var title = $('.pro_title ul').find('.color.selected').find('span').attr('datatitle');
-                var dcujson = {"1":"1099"};
-				var hash='ebdf9d6fcced8197af9cdaacf7f0ed7e';	
-                $.ajax({
-                    url: ajaxUrl,
-                    type: 'post',
-                    dataType: 'json',
-                    data: {
-                        fun: 'add',
-                        mun: $('input#mun[name="mun"]').val(),
-                        color: color,
-                        price: price,
-                        title: title,
-                        discount: dcujson,
-						hash:hash
-                    },
-                    success: function (d) {
-						if(d =='0'){
-							window.location.href = "http://uyerrep.dododoee.com/index.php";
-						}else{
-							cart = d;
-							reload_list(d);
-						    if (j) window.location.href = "http://uyerrep.dododoee.com/cart.php";
-						}
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alert(XMLHttpRequest.status);
-                        alert(XMLHttpRequest.readyState);
-                        alert(textStatus);
-                    },
-                    complete: function () {
-                        $(e).removeClass('disabled').val(text);
-                    }
-                })
-            }
-            function add_to_cart_2(e, j) {
-                var cart_total_num = parseInt($('#cartnum').text());
-                if (cart_total_num > 0) {
-                    $('.check_cart_empty').attr('onclick', '');
-                    return;
-                } else {
-                    $('.check_cart_empty').attr('onclick', 'add_to_cart(this,true)');
-                }
-                if ($(e).hasClass('disabled')) return;
-                var text = $(e).val();
-                $(e).addClass('disabled').val('加入購物車');
-                var color = $('.attrs ul').find('.color-img.selected').find('img').attr('alt');
-                var price = $('.pro_title ul').find('.color.selected').find('span').attr('datavalue');
-                var title = $('.pro_title ul').find('.color.selected').find('span').attr('datatitle');
-                var dcujson = {"1":"1099"};
-				var hash='ebdf9d6fcced8197af9cdaacf7f0ed7e';	
-                $.ajax({
-                    url: ajaxUrl,
-                    type: 'post',
-                    dataType: 'json',
-                    data: {
-                        fun: 'add',
-                        mun: $('input#mun[name="mun"]').val(),
-                        color: color,
-                        price: price,
-                        title: title,
-                        discount: dcujson,
-						hash:hash
-                    },
-                    success: function (d) {
-						if(d =='0'){
-							window.location.href = "http://uyerrep.dododoee.com/index.php";
-						}else{
-							cart = d;
-							reload_list(d);
-						    window.location.href = "http://uyerrep.dododoee.com/cart.php";
-						}
-                    },
-                    complete: function () {
-                        $(e).removeClass('disabled').val(text);
-                    }
-                })
-            }
-            function update_cart(e) {
-                var mun = $(e).val();
-                var color = $(e).parent().children('input[name="color"]').val();
-                var dcujson = {"1":"1099"};
-                var opt_price = parseInt($(e).parent().children('input[name="color"]').attr('alt'));
-                var size = $(e).parent().children('input[name="color"]').attr('title');
-                color=color.replace(size,'');
-				var hash='ebdf9d6fcced8197af9cdaacf7f0ed7e';	
-                $.ajax({
-                    url: ajaxUrl,
-                    type: 'post',
-                    dataType: 'json',
-                    data: {fun: 'update', mun: mun, color: color, price:opt_price, title:size, discount: dcujson,hash:hash},
-                    success: function (d) {
-						if(d =='0'){
-							window.location.href = "http://uyerrep.dododoee.com/index.php";
-						}else{
-						    cart = d;
-						    reload_list(d);
-						}
-                    },
-                    error: function () {
-                        window.location.reload();
-                    },
-                    complete: function () {
-                    }
-                })
-            }
-            function remove_cart(e) {
-                var mun = $(e).parents('li').find('input[name="mun"]').val();
-                var color = $(e).parents('li').find('input[name="color"]').val();
-                var dcujson = {"1":"1099"};
-                var opt_price = parseInt($(e).parents('li').find('input[name="color"]').attr('alt'));
-                var size = $(e).parents('li').find('input[name="color"]').attr('title');
-                color=color.replace(size,'');
-				var hash='ebdf9d6fcced8197af9cdaacf7f0ed7e';	
-                $.ajax({
-                    url: ajaxUrl,
-                    type: 'post',
-                    dataType: 'json',
-                    data: {fun: 'remove', mun: mun, color: color, price:opt_price, title:size, discount: dcujson,hash:hash},
-                    success: function (d) {
-						if(d =='0'){
-							window.location.href = "http://uyerrep.dododoee.com/index.php";
-						}else{
-							cart = d;
-						    reload_list(d);
-						}
-                    },
-                    error: function () {
-                        window.location.reload();
-                    }
-                })
-            }
-            function show_cart(e) {
-                $(e).parent().children('.dropdown-menu').toggle();
-            }
-            function upd_price() {
-                var cartmun = parseInt($('#cartnum').text());
-                var sizeprice = $('.pro_detail_right ul').find('.color.selected').find('span').attr('datavalue');
-                var total = 0;
-                var total1 = 0;
-                var senum = cartmun;
-                var mun = $('#mun').val();
-                var mun1 = $('#mun').val();
-                if (parseInt(mun) > 0) {
-                    mun = parseInt(mun) + parseInt(senum);
-                    senumi = parseInt(senum);
-                    var dcujson = {"1":"1099"};
-                    szprice = parseInt(sizeprice);
-                    var lastdis = 0;
-                    for (var vi in dcujson) {
-                        lastdis = dcujson[vi];
-                    }
-                    for (var i = 1; i <= mun; i++) {
-                        if (typeof dcujson[i] == 'undefined') {
-                            var j = mun - i + 1;
-                            total = parseInt(total) + parseInt(lastdis) * j;
-                            if (total1 != 0) {
-                                total1 += parseInt(lastdis * j);
-                            } else {
-                                total1 += parseInt(lastdis * mun1);
-                            }
-                            break;
-                        } else {
-                            total = parseInt(total) + parseInt(dcujson[i]);
-                            if (i > mun - mun1) {
-                                total1 += parseInt(dcujson[i]);
-                            }
-                        }
-                    }
-                    console.log(total);
-                    total = parseInt(total) + parseInt(szprice);
-                    total1 = parseInt(total1) + parseInt(szprice) * mun1;
-                    $("div.pro_price span").text(total1);
-                }
-            }
-            reload_list(cart);
-            $(document).mousedown(function (event) {
-                var e = $(event.target)
-                if (e.parents('#dLabel').length == 0) {
-                    $('#dLabel .dropdown-menu').hide()
-                }
-            });
-        </script>
+                
 <span id="buyBtn1" style="position:fixed;bottom:0;overflow:hidden;width:100%;margin:0 auto;z-index:9999;left:0;"><div
         class="container">
        <!-- <a href="#" id="mostrar"
@@ -644,5 +370,5 @@ src="https://www.facebook.com/tr?id=1127775293981079&amp;ev=PageView&amp;noscrip
     <script language="javascript" src="../api.pop800.com/800d4f6.html?n=254471&amp;s=01&amp;p=l&amp;l=cn"></script><div style="display:none;"><a href="http://www.pop800.com/">在线客服</a></div>
 </body>
 
-<!-- Mirrored from uyerrep.dododoee.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 21 Sep 2017 01:46:30 GMT -->
+
 </html>
